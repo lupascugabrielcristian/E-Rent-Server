@@ -1,0 +1,11 @@
+{
+	"items": [
+		{ "id": "1", "name": "data1", "description": "desc" },
+		{ "id": "2", "name": "data2", "currency": "ron" },
+		{ "id": "3", "name": "Crocodile", "currency": "ron", "price": 4, 
+			"featuredImage": "https://images-na.ssl-images-amazon.com/images/I/71TT%2BJApHQL._SL1200_.jpg",
+			"specifications": "very bad animal"
+		},
+		{ "id": "4", "name": "data3" }
+	]
+}

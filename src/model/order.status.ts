@@ -1,0 +1,7 @@
+export enum OrderStatus {
+	IN_STORAGE,
+	IN_ROUTE_TO_CLIENT,
+	AT_CLIENT,
+	IN_ROUTE_TO_STORAGE,
+	BUYING,
+}
