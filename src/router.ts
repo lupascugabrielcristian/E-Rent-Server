@@ -1,18 +1,10 @@
-import { ItemsService } from './items.service';
+import { ItemsController } from './controllers/items.controller';
 
 export class Router {
-	private itemsService;
 
-	constructor(private expressRouter: any) {
-		this.itemsService = new ItemsService();
-	}
+	constructor(private expressRouter: any) { }
 
 	initializeRoutes() {
-		this.expressRouter.get('/api/test_get', (req, res) => {
-			res.json("Test_get_OK");	
-		});
-		this.expressRouter.get('/api/items', (req, res) => {
-			res.json(this.itemsService.createItems());	
-		});
+		new ItemsController(this.expressRouter);
 	}
 }

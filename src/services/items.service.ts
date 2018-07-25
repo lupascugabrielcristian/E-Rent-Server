@@ -1,7 +1,7 @@
-import * as data from '../assets/items-data.json';
+import * as data from '../../assets/items-data.json';
 
-import { Item } from './item.model';
-import { IdGeneratorService } from './shared/id.generator.service';
+import { Item } from '../model/item';
+import { IdGeneratorService } from '../shared/id.generator.service';
 
 export class ItemsService {
 	private jsonItems = (<any>data).items;
