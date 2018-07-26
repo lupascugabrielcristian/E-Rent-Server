@@ -4,7 +4,7 @@ export class Router {
 
 	constructor(private expressRouter: any) { }
 
-	initializeRoutes() {
+	public initializeRoutes() {
 		new ItemsController(this.expressRouter);
 	}
 }
