@@ -1,15 +1,18 @@
 import * as express from 'express';
 import { Db } from 'mongodb';
 import { Router } from './router';
-import DbClient = require('./shared/db.connection');
+
+// this should allready have colled the constructor 
+// and can have the collection
+import { Database } from './shared/db.connection';
 
 class App {
-	public express;
+	express;
 
 	constructor() {
+		Database.client();
 		this.express = express();
 		this.mountRoutes();
-		DbClient.connect(this.databaseConnected);
 	}
 
 	private mountRoutes() {
@@ -18,10 +21,6 @@ class App {
 		this.express.use('/', router);
 	}
 
-	private databaseConnected(db: Db) {
-		const itemsCollection = db.collection("items");
-		itemsCollection.insert( { name: 'some name' } );
-	}
 }
 
 export default new App().express
