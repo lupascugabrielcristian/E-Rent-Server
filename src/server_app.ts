@@ -1,5 +1,4 @@
 import * as express from 'express';
-import { Db } from 'mongodb';
 import { Router } from './router';
 
 // this should allready have colled the constructor 
@@ -10,7 +9,7 @@ class App {
 	express;
 
 	constructor() {
-		Database.client();
+		initilizeDatabase();
 		this.express = express();
 		this.mountRoutes();
 	}
@@ -20,7 +19,10 @@ class App {
 		new Router(router).initializeRoutes();
 		this.express.use('/', router);
 	}
+}
 
+async function initilizeDatabase(){
+	await Database.client();
 }
 
 export default new App().express
