@@ -1,5 +1,6 @@
 import { Db, Collection } from 'mongodb';
 import { Database } from '../shared/db.connection';
+import { Item } from '../model/item';
 
 export class ItemsRepository {
 	private itemsCollection: Collection<any>;
@@ -10,22 +11,20 @@ export class ItemsRepository {
 
 	private initializeCollection(database: Db) {
 		if ( typeof database === "undefined" ) {
-			console.log("didn't get database");
+			console.log("[Items Repository] didn't get database");
 		}
 		else {
-			console.log("database obtained in the items repository");
 			this.itemsCollection = database.collection('items');
-			// this.itemsCollection.find({}).toArray() .then(arr => console.log('found ' + arr.length));
 		}
 	}
 
-	save(){
-		console.log("Saving an item into the database");
+	save(item: Item): void {
+		const a = this.itemsCollection.insertOne(item);
+		console.log("Saving an item into the database " + a);
 	}
 
 	findAll(): Promise<any[]> {
 		return this.itemsCollection.find({}).toArray();
 	}
-
 }
 

@@ -6,9 +6,14 @@ import { IdGeneratorService } from '../shared/id.generator.service';
 export class ItemsService {
 	private jsonItems = (<any>data).items;
 
-	createItems(): Item[] {
+	createJsonItems(): Item[] {
 		console.log("Creating items");
 		return this.jsonItems.map(this.parseJsonItem);
+	}
+
+	createItem(name: string): Item {
+		let itemId: string = '' + IdGeneratorService.generate();
+		return new Item(itemId, name);
 	}
 
 	private parseJsonItem(jsonItem: any): Item {
