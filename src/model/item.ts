@@ -1,5 +1,5 @@
 export class Item {
-	private _id: string = "";
+	private id: string = "";
 	name: string = "";
 	description: string = "";
 	price: number = 0;
@@ -11,17 +11,17 @@ export class Item {
 	specifications: string[] = [];
 
 	constructor(itemId:string, itemName: string) {
-		this._id = itemId;
+		this.id = itemId;
 		this.name = itemName;
 	}
 
-	get id() {
-		return this._id;
+	getId() {
+		return this.id;
 	}
 
-	set id(newId: string) {
-		if ( this._id === "") {
-			this._id === newId;
+	setId(newId: string) {
+		if ( this.id === "") {
+			this.id === newId;
 		}
 	}
 }
