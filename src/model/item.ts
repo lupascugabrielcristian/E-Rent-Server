@@ -6,7 +6,7 @@ export class Item {
 	currency: string = "";
 	locations: any[] = [];
 	state: any;
-	photos: string[] = [];
+	images: string[] = [];
 	featuredImage: string = "";
 	specifications: string[] = [];
 
