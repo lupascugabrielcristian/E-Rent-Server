@@ -16,7 +16,7 @@ export class ItemsService {
 		return new Item(itemId, name);
 	}
 
-	private parseJsonItem(jsonItem: any): Item {
+	parseJsonItem(jsonItem: any): Item {
 		if (typeof jsonItem.name === 'undefined') {
 			throw new Error('Json Item found in the items-data.json without name property' + jsonItem);
 		}
