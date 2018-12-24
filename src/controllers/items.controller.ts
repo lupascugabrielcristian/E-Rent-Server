@@ -32,5 +32,10 @@ export class ItemsController {
 				res.end('ok');
 			});
 		});
+
+		this.expressRouter.delete('/api/item/:id', (req , res) => {
+			Database.i_repo().delete(req.params.id)
+				.then(deletedCount => res.send("Deleted " + deletedCount)); 
+		});
 	}
 }

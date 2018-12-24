@@ -26,5 +26,25 @@ export class ItemsRepository {
 	findAll(): Promise<any[]> {
 		return this.itemsCollection.find({}).toArray();
 	}
+
+	delete(itemId: string): Promise<number> {
+		const collection = this.itemsCollection;  
+		let result: Promise<number> = new Promise(function(resolve, reject){
+		
+			collection.deleteOne( {id: itemId}, function(err, r) {
+				if (err) {
+					reject(new Error("Some error ocurred in database delete opeation"));
+
+				}
+				else {
+					console.log("Deleted from database " + r.deletedCount);	
+					resolve(r.deletedCount); 
+				}
+			});
+
+		});
+
+		return result;
+	}
 }
 
