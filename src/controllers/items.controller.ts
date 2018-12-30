@@ -26,7 +26,7 @@ export class ItemsController {
 				body += chunk.toString(); // convert Buffer to string
 			});
 			req.on('end', () => {
-				const item = this.itemsService.parseJsonItem(JSON.parse(body));
+				const item: Item = this.itemsService.parseJsonItem(JSON.parse(body));
 				Database.i_repo().save(item);
 				res.json("Item saved");
 				res.end('ok');

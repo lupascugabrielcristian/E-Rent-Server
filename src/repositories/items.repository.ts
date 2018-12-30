@@ -31,7 +31,7 @@ export class ItemsRepository {
 		const collection = this.itemsCollection;  
 		let result: Promise<number> = new Promise(function(resolve, reject){
 		
-			collection.deleteOne( {id: itemId}, function(err, r) {
+			collection.deleteOne( {_id: itemId}, function(err, r) {
 				if (err) {
 					reject(new Error("Some error ocurred in database delete opeation"));
 
