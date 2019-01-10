@@ -27,7 +27,7 @@ export class ItemsRepository {
 		return this.itemsCollection.find({}).toArray();
 	}
 
-	delete(itemId: string): Promise<number> {
+	deleteItem(itemId: string): Promise<number> {
 		const collection = this.itemsCollection;  
 		let result: Promise<number> = new Promise(function(resolve, reject){
 		
@@ -45,6 +45,14 @@ export class ItemsRepository {
 		});
 
 		return result;
+	}
+
+	deleteItems(ids: string[]): void {
+		const collection = this.itemsCollection;  
+		ids.forEach( itemId => {
+			console.log("Deleting item with id: ", itemId);
+			//this.deleteItem(itemId);
+		});
 	}
 }
 

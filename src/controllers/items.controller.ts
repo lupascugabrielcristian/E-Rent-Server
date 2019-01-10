@@ -33,8 +33,19 @@ export class ItemsController {
 			});
 		});
 
+		this.expressRouter.post('/api/delete/items', (req, res) => {
+			let body = '';
+			req.on('data', chunk => {
+				body += chunk.toString(); // convert Buffer to string
+			});
+			req.on('end', () => {
+				const itemIds: string[] = JSON.parse(body);
+				Database.i_repo().deleteItems(itemIds);
+			});
+		});
+
 		this.expressRouter.delete('/api/item/:id', (req , res) => {
-			Database.i_repo().delete(req.params.id)
+			Database.i_repo().deleteItem(req.params.id)
 				.then(deletedCount => res.send("Deleted " + deletedCount)); 
 		});
 	}
