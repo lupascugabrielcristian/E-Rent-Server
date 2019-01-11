@@ -49,10 +49,17 @@ export class ItemsRepository {
 
 	deleteItems(ids: string[]): void {
 		const collection = this.itemsCollection;  
-		ids.forEach( itemId => {
-			console.log("Deleting item with id: ", itemId);
-			//this.deleteItem(itemId);
+		const service = this;
+
+		const promises = ids.map( itemId => {
+			return service.deleteItem(itemId);
 		});
+
+		Rx.Observable.forkJoin(  promises  ).subscribe(function handleValue(values) { 
+		
+			console.log("All promises arrived with value %o", values);
+		
+		} );
 	}
 }
 
