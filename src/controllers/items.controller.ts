@@ -40,7 +40,7 @@ export class ItemsController {
 			});
 			req.on('end', () => {
 				const itemIds: string[] = JSON.parse(body);
-				Database.i_repo().deleteItems(itemIds);
+				Database.i_repo().deleteItems(itemIds).then(data => { res.json("Deleted items operation completed"); res.end("Deleted"); } );
 			});
 		});
 

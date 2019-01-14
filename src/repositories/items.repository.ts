@@ -1,6 +1,7 @@
 import { Db, Collection } from 'mongodb';
 import { Database } from '../shared/db.connection';
 import { Item } from '../model/item';
+import { forkJoin, Subscription } from 'rxjs';
 
 export class ItemsRepository {
 	private itemsCollection: Collection<any>;
@@ -34,10 +35,8 @@ export class ItemsRepository {
 			collection.deleteOne( {_id: itemId}, function(err, r) {
 				if (err) {
 					reject(new Error("Some error ocurred in database delete opeation"));
-
 				}
 				else {
-					console.log("Deleted from database " + r.deletedCount);	
 					resolve(r.deletedCount); 
 				}
 			});
@@ -47,7 +46,7 @@ export class ItemsRepository {
 		return result;
 	}
 
-	deleteItems(ids: string[]): void {
+	deleteItems(ids: string[]): Promise<boolean> {
 		const collection = this.itemsCollection;  
 		const service = this;
 
@@ -55,11 +54,9 @@ export class ItemsRepository {
 			return service.deleteItem(itemId);
 		});
 
-		Rx.Observable.forkJoin(  promises  ).subscribe(function handleValue(values) { 
-		
-			console.log("All promises arrived with value %o", values);
-		
-		} );
+		return new Promise( function(resolve, reject){
+			forkJoin( promises ).subscribe(values => resolve(true));	
+		});
 	}
 }
 
