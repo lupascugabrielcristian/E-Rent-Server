@@ -33,6 +33,19 @@ export class ItemsController {
 			});
 		});
 
+		this.expressRouter.post('/api/edit/item', (req, res) => {
+			let body = '';
+			req.on('data', chunk => {
+				body += chunk.toString(); // convert Buffer to string
+			});
+			req.on('end', () => {
+				const item: Item = this.itemsService.parseJsonItem(JSON.parse(body));
+				Database.i_repo().change(item);
+				res.json("Item saved");
+				res.end('ok');
+			});
+		});
+
 		this.expressRouter.post('/api/delete/items', (req, res) => {
 			let body = '';
 			req.on('data', chunk => {

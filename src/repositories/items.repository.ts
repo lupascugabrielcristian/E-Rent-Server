@@ -21,7 +21,25 @@ export class ItemsRepository {
 
 	save(item: Item): void {
 		const a = this.itemsCollection.insertOne(item);
-		console.log("Saving an item into the database " + a);
+	}
+
+	change(item: Item): Promise<boolean> {
+		console.log("Edit an item into the database ");
+		const collection = this.itemsCollection;  
+		let result: Promise<boolean> = new Promise(function(resolve, reject){
+		
+			collection.replaceOne( { _id: item._id }, item, function(err, r) {
+				if (err) {
+					reject(new Error("Some error ocurred in database update operation:  " + err));
+				}
+				else {
+					resolve(true); 
+				}
+			});
+
+		});
+
+		return result;
 	}
 
 	findAll(): Promise<any[]> {
@@ -34,7 +52,7 @@ export class ItemsRepository {
 		
 			collection.deleteOne( {_id: itemId}, function(err, r) {
 				if (err) {
-					reject(new Error("Some error ocurred in database delete opeation"));
+					reject(new Error("Some error ocurred in database delete operation: " + err));
 				}
 				else {
 					resolve(r.deletedCount); 
