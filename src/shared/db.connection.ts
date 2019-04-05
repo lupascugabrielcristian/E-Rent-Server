@@ -1,5 +1,6 @@
 import { MongoClient, Db } from 'mongodb';
 import { ItemsRepository } from '../repositories/items.repository';
+import { UsersRepository } from '../repositories/users.repository';
 
 export namespace Database {
 
@@ -28,8 +29,10 @@ export namespace Database {
 	}
 
 	let _i_repo: ItemsRepository; 
+	let _i_users_repo: UsersRepository;
 	function initiateRepos(database: Db) {
 		_i_repo = new ItemsRepository(database);
+		_i_users_repo = new UsersRepository(database);
 	}
 
 	const dbClient = new DbClient(initiateRepos);
@@ -40,5 +43,9 @@ export namespace Database {
 
 	export function i_repo() {
 		return _i_repo;
+	}
+
+	export function users_repo() {
+		return _i_users_repo;
 	}
 }
