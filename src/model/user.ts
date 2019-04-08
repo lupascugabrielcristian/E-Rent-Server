@@ -1,13 +1,13 @@
 import { Command } from './command';
 
 export class User {
-	private _id: string;
-	name: string;
+	readonly id: string;
+	name: string = "user";
 	email: string;
 	phone: string;
 	address: string;
-	userName: string;
-	password: string; 
+	userName: string = "user";
+	password: string = "user"; 
 
 	// This should be optional and the user should be able to set it specifically
 	orderHistory: Command[];
@@ -17,9 +17,7 @@ export class User {
 	// based on previous orders.
 	rating: number; 
 	
-	constructor(name: string, userName: string, password: string){
-		this.name = name;
-		this.userName = userName;
-		this.password = password;
+	constructor(id: string){
+		this.id = id;
 	}
 }
