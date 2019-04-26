@@ -9,9 +9,11 @@ export class Item {
 	images: string[] = [];
 	featuredImage: string = "";
 	specifications: string[] = [];
+	searchableTags: string[] = [];
 
 	constructor(itemId:string, itemName: string) {
 		this._id = itemId;
 		this.name = itemName;
+		this.searchableTags.push(itemName);
 	}
 }

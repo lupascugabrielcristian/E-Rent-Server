@@ -46,6 +46,19 @@ export class ItemsRepository {
 		return this.itemsCollection.find({}).toArray();
 	}
 
+	findByIds(ids: string[]): Promise<Item[]> {
+		const collection = this.itemsCollection;  
+		const service = this;
+
+		const promises = ids.map( itemId => {
+			return collection.findOne({ _id: itemId});
+		});
+
+		return new Promise( function(resolve, reject){
+			forkJoin( promises ).subscribe(values => resolve(values));	
+		});
+	}
+
 	deleteItem(itemId: string): Promise<number> {
 		const collection = this.itemsCollection;  
 		let result: Promise<number> = new Promise(function(resolve, reject){

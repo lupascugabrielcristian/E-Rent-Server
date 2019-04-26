@@ -1,10 +1,21 @@
 import * as data from '../../assets/items-data.json';
 
 import { Item } from '../model/item';
+import { SearchableItem } from '../model/searchable-item';
 import { IdGeneratorService } from '../shared/id.generator.service';
+import { Database } from '../shared/db.connection';
 
 export class ItemsService {
 	private jsonItems = (<any>data).items;
+	
+	getSearchableItems(): SearchableItem[] {
+		return this.jsonItems.map(item => {
+			return {
+				itemId: item._id,
+				searchableTags: item.searchableTags
+			}
+		});
+	}
 
 	createJsonItems(): Item[] {
 		console.log("Creating items");
@@ -30,5 +41,9 @@ export class ItemsService {
 			}
 		});
 		return item;
+	}
+
+	getItems(ids: string[]): Promise<Item[]> {
+		return Database.i_repo().findByIds(ids);
 	}
 }

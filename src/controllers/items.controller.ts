@@ -16,9 +16,13 @@ export class ItemsController {
 			res.json(this.itemsService.createJsonItems());	
 		});
 
+		this.expressRouter.get('/api/searchable-items', (req, res) => {
+			res.json( this.itemsService.getSearchableItems() );
+		});
+
 		this.expressRouter.get('/api/items-db', (req, res) => {
 			Database.i_repo().findAll().then(items => res.json(items));
-		} );
+		});
 
 		this.expressRouter.post('/api/save/item', (req, res) => {
 			let body = '';
@@ -60,6 +64,21 @@ export class ItemsController {
 		this.expressRouter.delete('/api/item/:id', (req , res) => {
 			Database.i_repo().deleteItem(req.params.id)
 				.then(deletedCount => res.send("Deleted " + deletedCount)); 
+		});
+
+		this.expressRouter.post('/api/to-items', (req, res) => {
+			let body = '';
+			req.on('data', chunk => {
+				body += chunk.toString(); // convert Buffer to string
+			});
+			req.on('end', () => {
+				const itemsIds: string[] = JSON.parse(body);
+				console.log(itemsIds);
+				this.itemsService.getItems(itemsIds).then(items => {
+					res.json(items);
+					res.end('ok');
+				});
+			});
 		});
 	}
 }
