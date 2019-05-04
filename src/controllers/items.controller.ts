@@ -17,7 +17,7 @@ export class ItemsController {
 		});
 
 		this.expressRouter.get('/api/searchable-items', (req, res) => {
-			res.json( this.itemsService.getSearchableItems() );
+			this.itemsService.getSearchableItems().then(searchableItems => res.json( searchableItems ));
 		});
 
 		this.expressRouter.get('/api/items-db', (req, res) => {
@@ -73,8 +73,8 @@ export class ItemsController {
 			});
 			req.on('end', () => {
 				const itemsIds: string[] = JSON.parse(body);
-				console.log(itemsIds);
 				this.itemsService.getItems(itemsIds).then(items => {
+					console.log("B");
 					res.json(items);
 					res.end('ok');
 				});
