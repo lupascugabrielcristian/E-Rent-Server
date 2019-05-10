@@ -16,6 +16,11 @@ export class ItemsController {
 			res.json(this.itemsService.createJsonItems());	
 		});
 
+		this.expressRouter.get('/api/item/:id', (req, res) => {
+			Database.i_repo().findByIds([req.params.id])
+				.then(items => res.json(items[0])); 
+		});
+
 		this.expressRouter.get('/api/searchable-items', (req, res) => {
 			this.itemsService.getSearchableItems().then(searchableItems => res.json( searchableItems ));
 		});
@@ -74,7 +79,6 @@ export class ItemsController {
 			req.on('end', () => {
 				const itemsIds: string[] = JSON.parse(body);
 				this.itemsService.getItems(itemsIds).then(items => {
-					console.log("B");
 					res.json(items);
 					res.end('ok');
 				});

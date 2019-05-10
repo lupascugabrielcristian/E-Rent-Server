@@ -47,7 +47,7 @@ export class ItemsService {
 				item[key] = jsonItem[key];
 			}
 		});
-		item.searchableTags = this.getSearchableTags(item):
+		item.searchableTags = this.getSearchableTags(item);
 		return item;
 	}
 
