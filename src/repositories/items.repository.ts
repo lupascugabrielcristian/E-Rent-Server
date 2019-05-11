@@ -1,4 +1,4 @@
-import { Db, Collection } from 'mongodb';
+import { Db, Collection, ObjectID } from 'mongodb';
 import { Database } from '../shared/db.connection';
 import { Item } from '../model/item';
 import { forkJoin, Subscription } from 'rxjs';
@@ -20,7 +20,8 @@ export class ItemsRepository {
 	}
 
 	save(item: Item): void {
-		const a = this.itemsCollection.insertOne(item);
+		item._id = new ObjectID();
+		this.itemsCollection.insertOne(item);
 	}
 
 	change(item: Item): Promise<boolean> {
@@ -51,7 +52,7 @@ export class ItemsRepository {
 		const service = this;
 
 		const promises = ids.map( itemId => {
-			return collection.findOne({ _id: itemId});
+			return collection.findOne({ _id: new ObjectID(itemId)});
 		});
 
 		return new Promise( function(resolve, reject){

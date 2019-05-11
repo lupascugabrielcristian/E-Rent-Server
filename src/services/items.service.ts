@@ -31,7 +31,7 @@ export class ItemsService {
 
 	createItem(name: string): Item {
 		let itemId: string = '' + IdGeneratorService.generate();
-		return new Item(itemId, name);
+		return new Item(name);
 	}
 
 	parseJsonItem(jsonItem: any): Item {
@@ -39,8 +39,8 @@ export class ItemsService {
 			throw new Error('Json Item found in the items-data.json without name property' + jsonItem);
 		}
 
-		let itemId: string = '' + IdGeneratorService.generate();
-		let item: Item = new Item(itemId, jsonItem.name);
+		//let itemId: string = '' + IdGeneratorService.generate();
+		let item: Item = new Item(jsonItem.name);
 
 		Object.keys(jsonItem).forEach(key => {
 			if (item.hasOwnProperty(key)) {

@@ -1,5 +1,7 @@
+import { ObjectID } from 'mongodb';
+
 export class Item {
-	_id: string = "";
+	_id: ObjectID;
 	name: string = "";
 	description: string = "";
 	price: number = 0;
@@ -11,8 +13,8 @@ export class Item {
 	specifications: string[] = [];
 	searchableTags: string[] = [];
 
-	constructor(itemId:string, itemName: string) {
-		this._id = itemId;
+	constructor(itemName: string) {
+	//	this._id = itemId;
 		this.name = itemName;
 		this.searchableTags.push(itemName);
 	}
