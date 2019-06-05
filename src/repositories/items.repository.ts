@@ -25,11 +25,10 @@ export class ItemsRepository {
 	}
 
 	change(item: Item): Promise<boolean> {
-		console.log("Edit an item into the database ");
 		const collection = this.itemsCollection;  
-		let result: Promise<boolean> = new Promise(function(resolve, reject){
-		
-			collection.replaceOne( { _id: item._id }, item, function(err, r) {
+		let result: Promise<boolean> = new Promise(function(resolve, reject) {
+			console.log("replacing item with id: %s", item._id);
+			collection.replaceOne( { _id: new ObjectID(item._id) }, item, function(err, r) {
 				if (err) {
 					reject(new Error("Some error ocurred in database update operation:  " + err));
 				}
@@ -64,7 +63,7 @@ export class ItemsRepository {
 		const collection = this.itemsCollection;  
 		let result: Promise<number> = new Promise(function(resolve, reject){
 		
-			collection.deleteOne( {_id: itemId}, function(err, r) {
+			collection.deleteOne( {_id: new ObjectID(itemId)}, function(err, r) {
 				if (err) {
 					reject(new Error("Some error ocurred in database delete operation: " + err));
 				}

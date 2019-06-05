@@ -14,7 +14,6 @@ export class Item {
 	searchableTags: string[] = [];
 
 	constructor(itemName: string) {
-	//	this._id = itemId;
 		this.name = itemName;
 		this.searchableTags.push(itemName);
 	}

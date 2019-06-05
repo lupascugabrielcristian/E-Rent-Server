@@ -1,9 +1,8 @@
-import * as data from '../../assets/items-data.json';
-
 import { Item } from '../model/item';
 import { SearchableItem } from '../model/searchable-item';
 import { IdGeneratorService } from '../shared/id.generator.service';
 import { Database } from '../shared/db.connection';
+import { ObjectID } from 'mongodb';
 
 export class ItemsService {
 	private jsonItems = (<any>data).items;
@@ -39,7 +38,6 @@ export class ItemsService {
 			throw new Error('Json Item found in the items-data.json without name property' + jsonItem);
 		}
 
-		//let itemId: string = '' + IdGeneratorService.generate();
 		let item: Item = new Item(jsonItem.name);
 
 		Object.keys(jsonItem).forEach(key => {
@@ -47,6 +45,14 @@ export class ItemsService {
 				item[key] = jsonItem[key];
 			}
 		});
+
+		if (!!jsonItem['_id']) {
+			item._id = new ObjectID(jsonItem['_id']);
+		}
+		else {
+			console.warn("%o", jsonItem);
+			throw new Error("Item without _id property");
+		}
 		item.searchableTags = this.getSearchableTags(item);
 		return item;
 	}
