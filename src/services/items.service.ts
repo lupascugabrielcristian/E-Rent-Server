@@ -5,8 +5,6 @@ import { Database } from '../shared/db.connection';
 import { ObjectID } from 'mongodb';
 
 export class ItemsService {
-	private jsonItems = (<any>data).items;
-	
 	getSearchableItems(): Promise<SearchableItem[]> {
 		const result = new Promise<SearchableItem[]>(function(resolve, reject){
 			Database.i_repo().findAll().then( items => {
@@ -21,11 +19,6 @@ export class ItemsService {
 		});
 
 		return result;
-	}
-
-	createJsonItems(): Item[] {
-		console.log("Creating items");
-		return this.jsonItems.map(this.parseJsonItem);
 	}
 
 	createItem(name: string): Item {

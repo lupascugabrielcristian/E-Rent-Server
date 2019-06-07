@@ -1,0 +1,6 @@
+export enum OrderState {
+	FILLING,
+	REGISTERED,
+	PROCESSING,
+	COMPLETED
+}

@@ -1,4 +1,4 @@
-export enum OrderStatus {
+export enum ProductStatus {
 	IN_STORAGE,
 	IN_ROUTE_TO_CLIENT,
 	AT_CLIENT,

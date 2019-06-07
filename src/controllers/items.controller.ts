@@ -12,10 +12,6 @@ export class ItemsController {
 	}
 
 	private registerRoutes() {
-		this.expressRouter.get('/api/items', (req, res) => {
-			res.json(this.itemsService.createJsonItems());	
-		});
-
 		this.expressRouter.get('/api/item/:id', (req, res) => {
 			Database.i_repo().findByIds([req.params.id])
 				.then(items => res.json(items[0])); 

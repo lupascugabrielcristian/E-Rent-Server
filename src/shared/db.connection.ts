@@ -1,6 +1,7 @@
 import { MongoClient, Db } from 'mongodb';
 import { ItemsRepository } from '../repositories/items.repository';
 import { UsersRepository } from '../repositories/users.repository';
+import { OrderToUseRepository } from '../repositories/order-to-use.repository';
 
 export namespace Database {
 
@@ -30,9 +31,11 @@ export namespace Database {
 
 	let _i_repo: ItemsRepository; 
 	let _i_users_repo: UsersRepository;
+	let _i_order_to_use_repo: OrderToUseRepository;
 	function initiateRepos(database: Db) {
 		_i_repo = new ItemsRepository(database);
 		_i_users_repo = new UsersRepository(database);
+		_i_order_to_use_repo = new OrderToUseRepository(database);
 	}
 
 	const dbClient = new DbClient(initiateRepos);
@@ -47,5 +50,9 @@ export namespace Database {
 
 	export function users_repo() {
 		return _i_users_repo;
+	}
+
+	export function orders_to_use_repo() {
+		return _i_order_to_use_repo;
 	}
 }

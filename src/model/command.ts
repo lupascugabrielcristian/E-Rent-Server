@@ -1,4 +1,3 @@
-import { OrderStatus } from './order.status';
 
 export class Command {
 
@@ -15,7 +14,6 @@ export class Command {
 	orderStartDate: string; // When arrives at the client
 	orderEndDate: string;
 
-	orderStatus: OrderStatus;
 
 	constructor(itemId: string, orderStartDate: string) {
 		this.itemId = itemId;		
