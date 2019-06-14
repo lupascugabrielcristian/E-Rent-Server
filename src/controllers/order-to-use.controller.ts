@@ -11,7 +11,7 @@ export class OrderToUseController {
 
 	private registerRoutes() {
 		this.expressRouter.get('/api/order_to_use', (req, res) => {
-			Database.users_repo().findAll().then(users => res.json(users));
+			Database.orders_to_use_repo().findAll().then(orders => res.json(orders));
 		});
 
 		this.expressRouter.post('/api/save/order_to_use', (req, res) => {

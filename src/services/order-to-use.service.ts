@@ -1,7 +1,8 @@
 import { OrderToUse } from '../model/order-to-use';
+import { Database } from '../shared/db.connection';
 
 export class OrderToUseService {
-	
+
 	fromJson(jsonData: any): OrderToUse {
 		const order = new OrderToUse();
 
