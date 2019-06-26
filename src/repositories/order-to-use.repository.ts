@@ -1,4 +1,4 @@
-import { Db, Collection } from 'mongodb';
+import { Db, Collection, InsertOneWriteOpResult, ObjectID } from 'mongodb';
 import { Database } from '../shared/db.connection';
 import { OrderToUse } from '../model/order-to-use';
 import { forkJoin, Subscription } from 'rxjs';
@@ -10,8 +10,16 @@ export class OrderToUseRepository {
 		this.initializeCollection(database);
 	}
 
-	save(order: OrderToUse): void {
-		this.collection.insertOne(order);
+	save(order: OrderToUse): Promise<ObjectID> {
+		const col = this.collection;
+		let result: Promise<ObjectID> = new Promise(function(resolve, reject){
+			col.insertOne(order, function(err, r){
+				console.log("new order to use saved with id %s", r.insertedId);
+				resolve(r.insertedId);
+			});
+		});
+
+		return result;
 	}
 
 	findAll(): Promise<OrderToUse[]> {

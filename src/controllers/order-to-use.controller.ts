@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import { OrderToUse } from '../model/order-to-use';
 import { OrderToUseService } from '../services/order-to-use.service';
 import { Database } from '../shared/db.connection';
@@ -21,9 +22,14 @@ export class OrderToUseController {
 			});
 			req.on('end', () => {
 				const order: OrderToUse = this.orderToUseService.fromJson(JSON.parse(body));
-				Database.orders_to_use_repo().save(order);
-				res.json("Order should be saved");
-				res.end('ok');
+				const savedOrder: Promise<ObjectID> = Database.orders_to_use_repo().save(order);
+
+				savedOrder.then( (data) => {
+				
+					res.json(data.toString());
+					res.end('ok');
+				
+				} );
 			});
 		});
 	}
